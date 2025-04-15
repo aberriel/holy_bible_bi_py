@@ -1,0 +1,99 @@
+@startuml
+entity Pais {
+	id : number
+	nome : text
+	criado_em : datetime
+	atualizado_em : datetime
+}
+entity Idioma {
+	id : number
+	nome : text
+	sigla : text
+	criado_em : datetime
+}
+entity IdiomaPais {
+	pais_id : number
+	idioma_id : number
+	criado_em : datetime
+}
+
+entity Tradutor {
+	id : number
+	idioma_id : number
+	nome : text
+	criado_em : datetime
+}
+
+Idioma ||--|{ Tradutor
+
+entity Autor {
+	id : number
+	nome : text
+}
+entity Versao {
+	id : number
+	tradutor_id : number
+	idioma_id : number
+	pais_id : number
+	nome : text
+	detalhes : text
+	criado_em : datetime
+	atualizado_em : datetime
+}
+
+Idioma ||--|{ Versao
+Tradutor ||--|{ Versao
+Pais ||--|{ Versao
+
+entity LivroVersao {
+	livro_id : number
+	versao_id : number
+	nome_versao : text
+	criado_em : datetime
+}
+entity Livro {
+	id : number
+	nome : text
+	autor_id : text
+	ano_estimado_escrita : number
+	idioma_original_id : number
+	apocrifo : bool
+	descricao : text
+	detalhes : text
+	parte_biblia : text
+	criado_em : datetime
+}
+
+Autor ||--|{ Livro
+Idioma ||--|{ Livro
+LivroVersao }|--|{ Livro
+Versao }|--|{ LivroVersao
+
+entity Capitulo {
+	id : number
+	livro_id : number
+	numero : number
+	apocrifo : bool
+	detalhes : text
+	criado_em : datetime
+}
+
+Livro ||--|{ Capitulo
+
+entity Versiculo {
+	id : number
+	capitulo_id : number
+	livro_id : number
+	versao_id : number
+	idioma_id : number
+	texto : text
+	fonte : text
+	criado_em : datetime
+	atualizado_em : datetime
+}
+
+Capitulo ||--|{ Versiculo
+Livro ||--|{ Versiculo
+Versao ||--|{ Versiculo
+Idioma ||--|{ Versiculo
+@enduml

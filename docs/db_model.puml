@@ -1,44 +1,97 @@
 @startuml
-entity Pais {
-	id : number
+entity Perfil {
+	*id : number
 	nome : text
 	criado_em : datetime
 	atualizado_em : datetime
 }
-entity Idioma {
-	id : number
+entity Usuario {
+	*id : number
 	nome : text
+	email : text
+	login : text
+	senha : text
+	ultima_atualizacao_senha : datetime
+	criado_em : datetime
+	atualizado_em : datetime
+}
+entity PerfilUsuario {
+	*perfil_id : number
+	*usuario_id : number
+	*data_hora_associacao : datetime
+}
+entity HistoricoPerfilUsuario {
+	*id_historico_perfil_usuario : number
+	*perfil_id : number
+	*usuario_id : number
+	*data_hora_associacao : datetime
+	data_hora_desassociacao : datetime
+}
+entity RecursoSistema {
+	*id : number
+	nome_recurso : text
+	detalhes : text
+	criado_em : datetime
+	atualizado_em : datetime
+}
+entity Permissao {
+	*id : number
+	perfil_id : number
+	usuario_id : number
+	recurso_id : number
+	acesso_concedido : text
+	data_hora_concessao : datetime
+}
+entity HistoricoConcessaoAcesso {
+	*id : number
+	permissao_id : number
+	data_hora_concessao : datetime
+	data_hora_revogacao : datetime
+}
+entity Pais {
+	*id : number
+	*nome : text
+	sigla : text
+	*criado_em : datetime
+	*atualizado_em : datetime
+}
+entity Idioma {
+	*id : number
+	*nome : text
 	sigla : text
 	criado_em : datetime
 }
 entity IdiomaPais {
-	pais_id : number
-	idioma_id : number
-	criado_em : datetime
+	*pais_id : number
+	*idioma_id : number
+	*criado_em : datetime
 }
 
 entity Tradutor {
-	id : number
-	idioma_id : number
-	nome : text
-	criado_em : datetime
+	*id : number
+	*idioma_id : number
+	pais_id : number
+	*nome : text
+	*criado_em : datetime
 }
 
 Idioma ||--|{ Tradutor
 
 entity Autor {
-	id : number
-	nome : text
+	*id : number
+	*nome : text
 }
+
 entity Versao {
-	id : number
-	tradutor_id : number
-	idioma_id : number
+	*id : number
+	*tradutor_id : number
+	*idioma_id : number
 	pais_id : number
-	nome : text
+	*nome : text
 	detalhes : text
-	criado_em : datetime
-	atualizado_em : datetime
+	*fonte : text
+	*criado_em : datetime
+	*atualizado_em : datetime
 }
 
 Idioma ||--|{ Versao
@@ -46,14 +99,16 @@ Tradutor ||--|{ Versao
 Pais ||--|{ Versao
 
 entity LivroVersao {
-	livro_id : number
-	versao_id : number
+	*livro_versao_id : number
+	*livro_id : number
+	*versao_id : number
+	*fonte : text
 	nome_versao : text
-	criado_em : datetime
+	*criado_em : datetime
 }
 entity Livro {
-	id : number
-	nome : text
+	*id : number
+	*nome : text
 	autor_id : text
 	ano_estimado_escrita : number
 	idioma_original_id : number
@@ -61,7 +116,7 @@ entity Livro {
 	descricao : text
 	detalhes : text
 	parte_biblia : text
-	criado_em : datetime
+	*criado_em : datetime
 }
 
 Autor ||--|{ Livro
@@ -70,26 +125,25 @@ LivroVersao }|--|{ Livro
 Versao }|--|{ LivroVersao
 
 entity Capitulo {
-	id : number
+	*id : number
 	livro_id : number
 	numero : number
 	apocrifo : bool
 	detalhes : text
-	criado_em : datetime
+	*criado_em : datetime
 }
 
 Livro ||--|{ Capitulo
 
 entity Versiculo {
-	id : number
+	*id : number
 	capitulo_id : number
-	livro_id : number
-	versao_id : number
+	livro_versao_id : number
 	idioma_id : number
 	texto : text
 	fonte : text
-	criado_em : datetime
-	atualizado_em : datetime
+	*criado_em : datetime
+	*atualizado_em : datetime
 }
 
 Capitulo ||--|{ Versiculo

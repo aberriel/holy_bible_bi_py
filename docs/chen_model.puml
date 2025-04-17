@@ -1,0 +1,74 @@
+@startchen
+
+entity Pais {
+	Id <<key>>
+	Nome
+	Sigla
+	CriadoEm
+}
+
+entity Idioma {
+	Id <<Key>>
+	Nome
+	Sigla
+	CriadoEm
+}
+
+entity Tradutor {
+	Id <<Key>>
+	Nome
+	CriadoEm
+}
+
+entity Autor {
+	Id <<Key>>
+}
+
+entity Versao {
+	Id <<Key>>
+	Nome
+	Detalhes
+	Fonte
+}
+
+entity Livro {
+	Id <<Key>>
+}
+entity Capitulo {
+	Id <<Key>>
+}
+entity Versiculo {
+	Id <<Key>>
+}
+
+relationship LIVRO_CONTEM -1- Livro
+relationship LIVRO_CONTEM -N- Capitulo
+
+relationship CAPITULO_CONTEM -1- Capitulo
+relationship CAPITULO_CONTEM -N- Versiculo
+
+relationship FALA {
+	CriadoEm
+}
+relationship FALA -N- Pais
+relationship FALA -N- Idioma
+relationship FALA -1- Tradutor
+
+relationship FEITA_POR {
+	Ano
+}
+relationship FEITA_POR -N- Versao
+relationship FEITA_POR -1- Tradutor
+
+relationship ESCRITO_POR -1- Autor
+relationship ESCRITO_POR -N- Livro
+
+relationship VERSAO_CONTEM {
+	Id <<Key>>
+	Fonte
+	Nome
+}
+relationship VERSAO_CONTEM -1- Versao
+relationship VERSAO_CONTEM -N- Livro
+
+@endchen

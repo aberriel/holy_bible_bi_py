@@ -2,8 +2,8 @@
 entity Perfil {
 	*id : number
 	nome : text
-	criado_em : datetime
-	atualizado_em : datetime
+	*criado_em : datetime
+	*atualizado_em : datetime
 }
 entity Usuario {
 	*id : number
@@ -80,6 +80,7 @@ Idioma ||--|{ Tradutor
 entity Autor {
 	*id : number
 	*nome : text
+	*criado_em : datetime
 }
 
 entity Versao {
@@ -117,6 +118,7 @@ entity Livro {
 	detalhes : text
 	parte_biblia : text
 	*criado_em : datetime
+	*atualizado_em : datetime
 }
 
 Autor ||--|{ Livro

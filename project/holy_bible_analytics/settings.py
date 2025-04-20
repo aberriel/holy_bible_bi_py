@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'holy_bible_collector'
 ]
 
 MIDDLEWARE = [
@@ -77,12 +78,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'holy_bible_bi',
-        'USER': 'hbbi',
-        'PASSWORD': 'hbbi123456',
-        'HOST': 'NB-SIN-FF791N3',
-        'PORT': '1443',
+        'USER': 'sa', #'hbbi',
+        'PASSWORD': 'Al,2501,SQ@', #'hbbi123456',
+        'HOST': '127.0.0.1',
+        'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server'
+            "driver": "ODBC Driver 18 for SQL Server",
+            'extra_params': 'Encrypt=no'
         }
     }
 }

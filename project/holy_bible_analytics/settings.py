@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'holy_bible_bi',
-        'USER': 'sa', #'hbbi',
-        'PASSWORD': 'Al,2501,SQ@', #'hbbi123456',
+        'USER': 'hbbi',
+        'PASSWORD': 'hbbi123456',
         'HOST': '127.0.0.1',
         'PORT': '1433',
         'OPTIONS': {

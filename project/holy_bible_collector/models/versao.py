@@ -5,6 +5,7 @@ from .pais import Pais
 from .tradutor import Tradutor
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+import uuid
 
 
 class VersaoManager(models.Manager):
@@ -17,10 +18,10 @@ class VersaoManager(models.Manager):
 class Versao(models.Model):
     objects = VersaoManager()
 
-    id = models.BigAutoField(primary_key=True, verbose_name=_('ID'), null=False)
-    tradutor = models.ForeignKey(Tradutor, on_delete=models.DO_NOTHING, verbose_name=_('Tradutor'), null=False)
-    idioma = models.ForeignKey(Idioma, on_delete=models.DO_NOTHING, verbose_name=_('Idioma'), null=False)
-    pais = models.ForeignKey(Pais, on_delete=models.DO_NOTHING, verbose_name=_('País'), null=True)
+    id = models.UUIDField(primary_key=True, verbose_name=_('ID'), null=False, default=uuid.uuid4)
+    tradutor = models.ForeignKey(Tradutor, on_delete=models.DO_NOTHING, verbose_name=_('Tradutor'), db_column='tradutor_id', null=False)
+    idioma = models.ForeignKey(Idioma, on_delete=models.DO_NOTHING, verbose_name=_('Idioma'), db_column='idioma_id', null=False)
+    pais = models.ForeignKey(Pais, on_delete=models.DO_NOTHING, verbose_name=_('País'), db_column='pais_id', null=True)
     nome = models.CharField(max_length=128, null=False, blank=False)
     detalhes = models.TextField(verbose_name=_('Detalhes'), null=True, blank=True)
     fonte = models.CharField(max_length=2048, verbose_name=_('Fonte'), null=False, blank=False)
@@ -29,5 +30,7 @@ class Versao(models.Model):
 
     class Meta:
         db_table = 'versao'
+        db_table_comment = 'Versões das Escrituras por idioma e tradutor'
+        ordering = ['idioma__nome', 'nome']
         verbose_name = _('Versão')
         verbose_name_plural = _('Versões')

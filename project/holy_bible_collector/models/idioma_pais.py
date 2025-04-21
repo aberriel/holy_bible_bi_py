@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class IdiomaPais(models.Model):
-    idioma = mdoels.ForeignKey(Idioma, on_delete=models.DO_NOTHING, null=False)
-    pais = models.ForeignKey(Pais, on_delete=models.DO_NOTHING, null=False)
+    idioma = mdoels.ForeignKey(Idioma, on_delete=models.DO_NOTHING, db_column='idioma_id', null=False)
+    pais = models.ForeignKey(Pais, on_delete=models.DO_NOTHING, db_column='pais_id', null=False)
     criado_em = models.DateTimeField(auto_now_add=True, verbose_name=_('Criado Em'), null=False)
 
     def __str__(self):
@@ -16,3 +16,5 @@ class IdiomaPais(models.Model):
 
     class Meta:
         db_table = 'idioma_pais'
+        db_table_comment = 'Relaciona países a idiomas nos quais as Escrituras foram traduzidas'
+        ordering = ['pais__nome', 'idioma__nome']

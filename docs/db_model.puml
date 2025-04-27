@@ -1,157 +1,157 @@
 @startuml
-entity Perfil {
+entity Profile {
 	*id : uuid
-	nome : text
-	*criado_em : datetime
-	*atualizado_em : datetime
+	name : text
+	*created_at : datetime
+	*updated_at : datetime
 }
-entity Usuario {
+entity User {
 	*id : uuid
-	nome : text
+	name : text
 	email : text
 	login : text
-	senha : text
-	ultima_atualizacao_senha : datetime
-	criado_em : datetime
-	atualizado_em : datetime
+	password : text
+	password_updated_at : datetime
+	created_at : datetime
+	updated_at : datetime
 }
-entity PerfilUsuario {
-	*perfil_id : uuid
-	*usuario_id : uuid
-	*data_hora_associacao : datetime
+entity UserProfile {
+	*profile_id : uuid
+	*user_id : uuid
+	*associated_at : datetime
 }
-entity HistoricoPerfilUsuario {
-	*id_historico_perfil_usuario : uuid
-	*perfil_id : uuid
-	*usuario_id : uuid
-	*data_hora_associacao : datetime
-	data_hora_desassociacao : datetime
+entity UserProfileHistory {
+	*id_user_profile_history : uuid
+	*profile_id : uuid
+	*user_id : uuid
+	*associated_at : datetime
+	disassociated_at : datetime
 }
-entity RecursoSistema {
+entity SystemResource {
 	*id : uuid
-	nome_recurso : text
-	detalhes : text
-	criado_em : datetime
-	atualizado_em : datetime
+	resource_name : text
+	details : text
+	*created_at : datetime
+	*updated_at : datetime
 }
 entity Permissao {
 	*id : uuid
-	perfil_id : uuid
-	usuario_id : uuid
-	recurso_id : uuid
-	acesso_concedido : text
-	data_hora_concessao : datetime
+	profile_id : uuid
+	user_id : uuid
+	resource_id : uuid
+	access_granted : text
+	grant_date_time : datetime
 }
 entity HistoricoConcessaoAcesso {
 	*id : uuid
-	permissao_id : uuid
-	data_hora_concessao : datetime
-	data_hora_revogacao : datetime
+	permission_id : uuid
+	granted_date_time : datetime
+	revocation_date_time : datetime
 }
-entity Pais {
+entity Country {
+	*id : uuid
+	*name : text
+	abbreviation : text
+	*created_at : datetime
+	*updated_at : datetime
+}
+entity Language {
+	*id : uuid
+	*name : text
+	abbreviation : text
+	created_at : datetime
+}
+entity LanguageCountry {
+	*country_id : uuid
+	*language_id : uuid
+	*created_at : datetime
+}
+
+entity Translator {
+	*id : uuid
+	*language_id : uuid
+	country_id : uuid
+	*name : text
+	*created_at : datetime
+}
+
+Language ||--|{ Translator
+
+entity Author {
 	*id : uuid
 	*nome : text
-	sigla : text
 	*criado_em : datetime
-	*atualizado_em : datetime
 }
-entity Idioma {
+
+entity Version {
 	*id : uuid
-	*nome : text
-	sigla : text
-	criado_em : datetime
-}
-entity IdiomaPais {
-	*pais_id : uuid
-	*idioma_id : uuid
-	*criado_em : datetime
+	*translator_id : uuid
+	*language_id : uuid
+	country_id : uuid
+	*name : text
+	details : text
+	*source : text
+	*created_at : datetime
+	*updated_at : datetime
 }
 
-entity Tradutor {
+Language ||--|{ Version
+Translator ||--|{ Version
+Country ||--|{ Version
+
+entity BookVersion {
+	*book_version_id : uuid
+	*book_id : uuid
+	*version_id : uuid
+	*source : text
+	name_version : text
+	details : text
+	*created_at : datetime
+	*updated_at : datetime
+}
+entity Book {
 	*id : uuid
-	*idioma_id : uuid
-	pais_id : uuid
-	*nome : text
-	*criado_em : datetime
+	*name : text
+	author_id : uuid
+	estimated_year_written : number
+	original_languageid : uuid
+	apocryphon : bool
+	description : text
+	details : text
+	bible_part : text
+	*created_at : datetime
+	*updated_at : datetime
 }
 
-Idioma ||--|{ Tradutor
+Author ||--|{ Book
+Language ||--|{ Book
+BookVersion }|--|{ Book
+Version }|--|{ BookVersion
 
-entity Autor {
+entity Chapter {
 	*id : uuid
-	*nome : text
-	*criado_em : datetime
+	book_id : uuid
+	number : number
+	apocryphon : bool
+	details : text
+	*created_at : datetime
 }
 
-entity Versao {
+Book ||--|{ Chapter
+
+entity Verse {
 	*id : uuid
-	*tradutor_id : uuid
-	*idioma_id : uuid
-	pais_id : uuid
-	*nome : text
-	detalhes : text
-	*fonte : text
-	*criado_em : datetime
-	*atualizado_em : datetime
+	chapter_id : uuid
+	book_version_id : uuid
+	language_id : uuid
+	content : text
+	source : text
+	*created_at : datetime
+	*updated_at : datetime
 }
 
-Idioma ||--|{ Versao
-Tradutor ||--|{ Versao
-Pais ||--|{ Versao
-
-entity LivroVersao {
-	*livro_versao_id : uuid
-	*livro_id : uuid
-	*versao_id : uuid
-	*fonte : text
-	nome_versao : text
-	detalhes : text
-	*criado_em : datetime
-	*atualizado_em : datetime
-}
-entity Livro {
-	*id : uuid
-	*nome : text
-	autor_id : uuid
-	ano_estimado_escrita : number
-	idioma_original_id : uuid
-	apocrifo : bool
-	descricao : text
-	detalhes : text
-	parte_biblia : text
-	*criado_em : datetime
-	*atualizado_em : datetime
-}
-
-Autor ||--|{ Livro
-Idioma ||--|{ Livro
-LivroVersao }|--|{ Livro
-Versao }|--|{ LivroVersao
-
-entity Capitulo {
-	*id : uuid
-	livro_id : uuid
-	numero : number
-	apocrifo : bool
-	detalhes : text
-	*criado_em : datetime
-}
-
-Livro ||--|{ Capitulo
-
-entity Versiculo {
-	*id : uuid
-	capitulo_id : uuid
-	livro_versao_id : uuid
-	idioma_id : uuid
-	texto : text
-	fonte : text
-	*criado_em : datetime
-	*atualizado_em : datetime
-}
-
-Capitulo ||--|{ Versiculo
-Livro ||--|{ Versiculo
-Versao ||--|{ Versiculo
-Idioma ||--|{ Versiculo
+Chapter ||--|{ Verse
+Book ||--|{ Verse
+Version ||--|{ Verse
+Language ||--|{ Verse
 @enduml

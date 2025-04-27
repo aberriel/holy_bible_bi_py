@@ -1,40 +1,40 @@
 # -*- coding: utf-8 -*-
 
-from .autor import Autor
-from .capitulo import Capitulo
-from .dados_brutos import DadosBrutos
-from .historico_perfil_usuario import HistoricoPerfilUsuario
-from .idioma import Idioma
-from .idioma_pais import IdiomaPais
-from .livro import Livro
-from .livro_versao import LivroVersao
-from .pais import Pais
-from .parte_biblia import ParteBiblia
-from .perfil import Perfil
-from .perfil_usuario import PerfilUsuario
-from .recurso_sistema import RecursoSistema
-from .tradutor import Tradutor
-from .usuario import Usuario
-from .versao import Versao
-from .versiculo import Versiculo
+from .author import Author
+from .bible_part import BiblePart
+from .book import Book
+from .book_version import BookVersion
+from .chapter import Chapter
+from .country import Country
+from .language import Language
+from .language_country import LanguageCountry
+from .profile import Profile
+from .raw_data import RawData
+from .system_resource import SystemResoure
+from .translator import Translator
+from .user import User
+from .user_profile import UserProfile
+from .user_profile_history import UserProfileHistory
+from .verse import Verse
+from .version import Version
 
 
 __all__ = [
-	'Autor',
-	'Capitulo',
-	'DadosBrutos',
-	'HistoricoPerfilUsuario',
-	'Idioma',
-	'IdiomaPais',
-	'Livro',
-	'LivroVersao',
-	'Pais',
-	'ParteBiblia',
-	'Perfil',
-	'PerfilUsuario',
-	'RecursoSistema',
-	'Tradutor',
-	'Usuario',
-	'Versao',
-	'Versiculo'
+    'Author',
+    'BiblePart',
+    'Book',
+    'BookVersion',
+    'Chapter',
+    'Country',
+    'Language',
+    'LanguageCountry',
+    'Profile',
+    'RawData',
+    'SystemResource',
+    'Translator',
+    'User',
+    'UserProfile',
+    'UserProfileHistory',
+    'Verse',
+    'Version'
 ]
